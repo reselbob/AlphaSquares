@@ -1,0 +1,17 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "A application for demonstrating key features of Swagger. This application creates alphaSquares. An alphaSquare is a text based square made up of an alphabetic character this is repeated X times over X rows.\n\nYou create an alphaSquare in the POST method and update a given alphaSquare in the PUT method.\n\nThe syntax for creating an alphaSquare is /{alphaChar}/{size}\n\nWHERE\n\n<b>{alphaChar}</b> is the character uponw which to build the square\n\n<b>{size}</b> is the width and height of an alphaSquare.\n\nTHUS\n\n/b/5 will produce an alphaSquare as follows\n\nbbbbb <br />bbbbb<br />bbbbb<br />bbbbb<br />bbbbb\n\n<b>Please note</b>, characters are case senstive",
+  "main": "index.js",
+  "keywords": [
+    "swagger"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "mongodb": "^2.1.2",
+    "swagger-tools": "0.9.*"
+  }
+}
