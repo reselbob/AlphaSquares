@@ -141,28 +141,18 @@ paths:
     x-swagger-router-controller: "AlphaSquaresImplementation"
 definitions:
   Square:
-    type: "object"
-    properties:
-      squareChar:
-        type: "string"
-      square:
-        type: "array"
-        items:
-          type: "string"
+    type: array
+    items:
+      type: string
   Error:
-    type: "object"
+    type: object
     properties:
-      code:
-        type: "integer"
-        format: "int32"
-      message:
-        type: "string"
-      fields:
-        type: "string"
+      error:
+        type: string
   Deleted:
     properties:
       alphaChar:
-        type: "string"
+        type: string
       deleteTime:
-        type: "string"
-        format: "date-time"
+        type: string
+        format: date-time

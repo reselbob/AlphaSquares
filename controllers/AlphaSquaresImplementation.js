@@ -70,7 +70,8 @@ function deleteAlphaSquare(req, res) {
     mongoizer.deleteSquare(chr,
         function(result){
             res.statusCode = 200;
-            res.write(JSON.stringify(result));
+            var newDate = new Date();
+            res.write(JSON.stringify({alphaChar:chr,deleteTime:newDate}));
             res.end();
         },
         function(err){
