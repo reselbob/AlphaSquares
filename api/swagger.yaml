@@ -1,0 +1,168 @@
+---
+swagger: "2.0"
+info:
+  description: "A application for demonstrating key features of Swagger. This application\
+    \ creates alphaSquares. An alphaSquare is a text based square made up of an alphabetic\
+    \ character this is repeated X times over X rows.\n\nYou create an alphaSquare\
+    \ in the POST method and update a given alphaSquare in the PUT method.\n\nThe\
+    \ syntax for creating an alphaSquare is /{alphaChar}/{size}\n\nWHERE\n\n<b>{alphaChar}</b>\
+    \ is the character uponw which to build the square\n\n<b>{size}</b> is the width\
+    \ and height of an alphaSquare.\n\nTHUS\n\n/b/5 will produce an alphaSquare as\
+    \ follows\n\nbbbbb <br />bbbbb<br />bbbbb<br />bbbbb<br />bbbbb\n\n<b>Please note</b>,\
+    \ characters are case senstive\n"
+  version: "1.0.0"
+  title: "AlphaSquare"
+basePath: "/v1"
+schemes:
+- "http"
+produces:
+- "application/json"
+paths:
+  /:
+    get:
+      tags:
+      - "AlphaSquare"
+      summary: "gets all alphaSquares"
+      description: "Gets a JSON array of all alphaSquares in the system\n"
+      operationId: "getAllAlphaSquares"
+      parameters: []
+      responses:
+        200:
+          description: "An array of alphaSquares"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Square"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "AlphaSquaresImplementation"
+  /{alphaChar}:
+    get:
+      tags:
+      - "AlphaSquare"
+      summary: "gets an alphaSquare"
+      description: "get an alphaSquare as defined by the parameter, {alphaChar}\n"
+      operationId: "getAlphaSquare"
+      parameters:
+      - name: "alphaChar"
+        in: "path"
+        description: "The alpha character upon which to retrieve the square"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "the requested alphaSquare"
+          schema:
+            $ref: "#/definitions/Square"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+
+    delete:
+      tags:
+      - "AlphaSquare"
+      summary: "deletes an alphaSquare"
+      description: "Deletes an alphaSquare as defined by the parameter, {alphaChar}\n"
+      operationId: "deleteAlphaSquare"
+      parameters:
+      - name: "alphaChar"
+        in: "path"
+        description: "The alpha character used to determine which square to delete"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "An array of alphaSquares"
+          schema:
+            $ref: "#/definitions/Deleted"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "AlphaSquaresImplementation"
+  /{alphaChar}/{size}:
+    post:
+      tags:
+      - "AlphaSquare"
+      summary: "adds an alphaSquare to the system"
+      description: "Adds an alphaSquare to the system"
+      operationId: "postAlphaSquare"
+      parameters:
+      - name: "alphaChar"
+        in: "path"
+        description: "The alpha character upon which to update an existing the square"
+        required: true
+        type: "string"
+      - name: "size"
+        in: "path"
+        description: "The size of the square to make, width and height"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "The new alphaSquare"
+          schema:
+            $ref: "#/definitions/Square"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    put:
+      tags:
+      - "AlphaSquare"
+      summary: "updates an alphaSquare"
+      description: "Updates an alphaSquare to the system"
+      operationId: "putAlphaSquare"
+      parameters:
+      - name: "alphaChar"
+        in: "path"
+        description: "The alpha character upon which to update an existing alphaSquare"
+        required: true
+        type: "string"
+      - name: "size"
+        in: "path"
+        description: "The size of the square to update, width and height"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "The updated alphaSquare"
+          schema:
+            $ref: "#/definitions/Square"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "AlphaSquaresImplementation"
+definitions:
+  Square:
+    type: "object"
+    properties:
+      squareChar:
+        type: "string"
+      square:
+        type: "array"
+        items:
+          type: "string"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
+  Deleted:
+    properties:
+      alphaChar:
+        type: "string"
+      deleteTime:
+        type: "string"
+        format: "date-time"
