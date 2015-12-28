@@ -12,6 +12,7 @@
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
     "mongodb": "^2.1.2",
-    "swagger-tools": "0.9.*"
+    "swagger-tools": "0.9.*",
+    "forever": "0.14.1"
   }
 }
