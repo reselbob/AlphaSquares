@@ -106,7 +106,7 @@ function getSquares(next, errFunc) {
         if(err){
             errFunc(err);
         }else{
-            var cursor = db.collection(collectionName).find();
+            var cursor = db.collection(collectionName).find().sort({char:1});
             var arr = new Array();
             cursor.each(function(err, item) {
                 // If the item is null then the cursor is exhausted/empty and closed
