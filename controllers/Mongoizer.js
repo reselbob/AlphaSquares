@@ -2,7 +2,7 @@
  * Created by breselman on 12/24/15.
  */
 'use strict';
-var config = require('./config');
+var config = require('./../config');
 var Db = require('mongodb').Db,
     Server = require('mongodb').Server
 var host = config.mongoizer.host;

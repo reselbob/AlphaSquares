@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoizer = require('./controllers/Mongoizer');
-var config = require('./controllers/config');
+var config = require('./config');
 
 var app = require('connect')();
 var http = require('http');
