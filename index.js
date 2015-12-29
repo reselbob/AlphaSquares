@@ -1,12 +1,16 @@
 'use strict';
+
+var mongoizer = require('./controllers/Mongoizer');
+var config = require('./controllers/config');
+
 var app = require('connect')();
 var http = require('http');
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
-var serverPort = 8001;
 
-var mongoizer = require('./controllers/Mongoizer');
+var serverPort = config.server.port;
+
 
 // swaggerRouter configuration
 var options = {
@@ -40,7 +44,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     //Set up the mongodb stuff
     mongoizer.intialize(function(){},function(err){
       //if mongoDB is not running, report the error
-      console.log(JSON.stringify(err));
+      console.log(JSON.stringify({error:err}));
       process.exit(1);
     });
   });
