@@ -1,6 +1,3 @@
-/**
- * Created by breselman on 12/24/15.
- */
 'use strict';
 var config = require('./../config');
 var Db = require('mongodb').Db,
@@ -22,7 +19,7 @@ module.exports = {
  chr: the character of the square data to save
  sze: the size of the square
  */
-function addSquare(chr, sze,next, errFunc) {
+function addSquare(chr, sze,next, errfunc) {
     console.log('adding square char:' + chr + ' size:' + sze);
     var db = new Db(dbName, new Server(host, port));
     db.open(function(err, db){
@@ -31,20 +28,19 @@ function addSquare(chr, sze,next, errFunc) {
         collection.save({_id:chr,char:chr, size:sze}, {w: 1}, function(err, result) {
             db.close();
             if(err){
-                errFunc(err);
+                errfunc(err);
             }else{
                 next();
             }
         });
 
     });
-
 };
 /*
  Deletes a specific square's data
  chr: the character of the square data to delete
  */
-function deleteSquare(chr,next,errFunc) {
+function deleteSquare(chr,next,errfunc) {
     console.log('deleting square ' + chr);
     var db = new Db(dbName, new Server(host, port));
     db.open(function (err, db) {
@@ -55,7 +51,7 @@ function deleteSquare(chr,next,errFunc) {
         db.collection(collectionName, function (err, col) {
             if (err) {
                 db.close();
-                errFunc(err);
+                errfunc(err);
             } else {
                 col.findAndRemove({_id: chr}, function (err, result) {
                     db.close();
@@ -74,19 +70,19 @@ function deleteSquare(chr,next,errFunc) {
 Gets a specific square's data
 chr: the character of the square data to retrieve
  */
-function getSquare(chr, next, errFunc) {
+function getSquare(chr, next, errfunc) {
     console.log('getting square ' + chr);
     var db = new Db(dbName, new Server(host, port));
     db.open(function(err, db){
         // Fetch the collection
         var collection = db.collection(collectionName,function(err, item) {
             if(err){
-                errFunc(err);
+                errfunc(err);
             }else{
                 item.findOne({_id:chr,char:chr},function(err, result) {
                     db.close();
                     if(err){
-                        errFunc(err);
+                        errfunc(err);
                     }else{
                         next(result);
                     }
@@ -99,12 +95,12 @@ function getSquare(chr, next, errFunc) {
 /*
 Gets all the squares in the data store
  */
-function getSquares(next, errFunc) {
+function getSquares(next, errfunc) {
     console.log('getting squares');
     var db = new Db(dbName, new Server(host, port));
     db.open(function(err, db){
         if(err){
-            errFunc(err);
+            errfunc(err);
         }else{
             var cursor = db.collection(collectionName).find().sort({char:1});
             var arr = new Array();
@@ -142,7 +138,7 @@ function intialize(next, errfunc) {
                         //The collection does not exist, make it
                         db.createCollection(collectionName, function(err, collection){
                             db.close();
-                            if (err) errFunc(err);
+                            if (err) errfunc(err);
                             console.log('Created collection,[ ' + collectionName + "] in database, [" + dbName + ']');
                         });
                     }

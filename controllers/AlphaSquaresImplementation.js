@@ -1,8 +1,4 @@
-/**
- * Created by breselman on 12/22/15.
- */
 'use strict';
-
 
 var mongoizer = require('./Mongoizer');
 
